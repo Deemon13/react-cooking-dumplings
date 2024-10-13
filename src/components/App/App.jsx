@@ -1,12 +1,23 @@
 import styles from './App.module.css';
 import data from '../../data/data.json';
+import { useState } from 'react';
 
 export const App = () => {
+	const [steps, setSteps] = useState(data);
+	const [activeIndex, setActiveIndex] = useState(0);
 	// Можно задать 2 состояния — steps и activeIndex
+	// console.log(steps);
+	// console.log(activeIndex);
 
-	// И определить 3 обработчика: Клик назад, Клик вперед, Начать сначала
+	let firstStep = activeIndex === 0;
+	let lastStep = activeIndex === steps.length - 1;
 
 	// И 2 переменных-флага — находимся ли мы на первом шаге, и находимся ли на последнем
+
+	// И определить 3 обработчика: Клик назад, Клик вперед, Начать сначала
+	const onStepClick = event => {
+		setActiveIndex(Number(event.target.innerText) - 1);
+	};
 
 	return (
 		<div className={styles.container}>
@@ -15,8 +26,33 @@ export const App = () => {
 				<div className={styles.steps}>
 					<div className={styles['steps-content']}>
 						{/* Для получения активного контента использйте steps и activeIndex */}
-						Контент соответственный шагу. Сейчас активен шаг 3
+						{/* Контент соответственный шагу. Сейчас активен шаг 3 */}
+						{steps[activeIndex].content}
 					</div>
+					<ul className={styles['steps-list']}>
+						{steps.map((item, idx) => {
+							return (
+								<li
+									key={item.id}
+									className={
+										styles['steps-item'] +
+										' ' +
+										(idx < activeIndex ? styles.done : '') +
+										' ' +
+										(idx === activeIndex ? styles.active : '')
+									}
+								>
+									<button
+										className={styles['steps-item-button']}
+										onClick={onStepClick}
+									>
+										{Number(item.id)}
+									</button>
+									{item.title}
+								</li>
+							);
+						})}
+					</ul>
 					<ul className={styles['steps-list']}>
 						{/* Выводите <li> с помощью массива steps и метода map(), подставляя в разметку нужные значения и классы */}
 						<li className={styles['steps-item'] + ' ' + styles.done}>
@@ -47,9 +83,11 @@ export const App = () => {
 						</li>
 					</ul>
 					<div className={styles['buttons-container']}>
-						<button className={styles.button}>Назад</button>
+						<button className={styles.button} disabled={firstStep}>
+							Назад
+						</button>
 						<button className={styles.button}>
-							Далее
+							{lastStep ? 'Начать сначала' : 'Далее'}
 							{/* "Начать сначала", можно сделать этой же кнопкой, просто подменять обработчик и текст в зависимости от условия */}
 							{/* Или заменять всю кнопку в зависимости от условия */}
 						</button>
