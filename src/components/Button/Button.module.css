@@ -7,6 +7,7 @@
 }
 
 .button:hover {
+	cursor: pointer;
 	background-color: hsl(var(--accent-color-hue), var(--accent-color-saturation), 87%);
 }
 

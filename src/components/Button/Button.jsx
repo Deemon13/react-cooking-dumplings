@@ -10,7 +10,6 @@ export const Button = ({ condition, activeIndex, onButtonClick, content }) => {
 		<button
 			className={styles.button}
 			{...(state.condition ? { disabled: firstStep } : {})}
-			// disabled={firstStep}
 			onClick={onButtonClick}
 		>
 			{content}
