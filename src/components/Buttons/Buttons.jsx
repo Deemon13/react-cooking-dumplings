@@ -25,7 +25,8 @@ export const Buttons = ({ steps, activeIndex, setActiveIndex }) => {
 	};
 
 	return (
-		<div className={styles['buttons-container']}>
+		// <div className={styles['buttons-container']}>
+		<>
 			<button
 				className={styles.button}
 				disabled={firstStep}
@@ -39,7 +40,8 @@ export const Buttons = ({ steps, activeIndex, setActiveIndex }) => {
 			>
 				{lastStep ? 'Начать сначала' : 'Далее'}
 			</button>
-		</div>
+			{/* // </div> */}
+		</>
 	);
 };
 

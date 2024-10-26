@@ -1,34 +1,22 @@
 import PropTypes from 'prop-types';
 
+import { StepsListItem } from '../../components';
+
 import styles from './StepsList.module.css';
 
 export const StepsList = ({ steps, activeIndex, setActiveIndex }) => {
-	const onStepClick = event => {
-		setActiveIndex(Number(event.target.innerText) - 1);
-	};
-
 	return (
 		<ul className={styles['steps-list']}>
-			{steps.map((item, idx) => {
+			{steps.map(({ id, title }, idx) => {
 				return (
-					<li
-						key={item.id}
-						className={
-							styles['steps-item'] +
-							' ' +
-							(idx < activeIndex ? styles.done : '') +
-							' ' +
-							(idx === activeIndex ? styles.active : '')
-						}
-					>
-						<button
-							className={styles['steps-item-button']}
-							onClick={onStepClick}
-						>
-							{Number(item.id)}
-						</button>
-						{item.title}
-					</li>
+					<StepsListItem
+						key={id}
+						id={id}
+						title={title}
+						idx={idx}
+						activeIndex={activeIndex}
+						setActiveIndex={setActiveIndex}
+					/>
 				);
 			})}
 		</ul>
